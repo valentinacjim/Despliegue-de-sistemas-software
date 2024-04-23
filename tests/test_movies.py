@@ -3,23 +3,21 @@ import pytest
 from movies.movie import Movie
 from movies.movie_commands import CreateMovieCommand, ListMovies
 
+
 @pytest.fixture(autouse=True)
 def database():
     Movie.create_table()
     yield
     Movie.delete_rows()
-    
+
+
 def test_create_movie():
     """
-        INPUT:
-        OUTPUT: 
+    INPUT:
+    OUTPUT:
     """
 
-    cmd = CreateMovieCommand(
-        title = "Avatar",
-        duration = 178,
-        category = "Action"
-    )
+    cmd = CreateMovieCommand(title="Avatar", duration=178, category="Action")
 
     movie = cmd.execute()
 
@@ -34,40 +32,25 @@ def test_create_movie():
 
 def test_create_movie_already_exists():
     """
-        INPUT:
-        OUTPUT: 
+    INPUT:
+    OUTPUT:
     """
-    Movie(
-        title = "Avatar",
-        duration = 178,
-        category = "Action"
-    ).save()
+    Movie(title="Avatar", duration=178, category="Action").save()
 
-    cmd = CreateMovieCommand(
-        title = "Avatar",
-        duration = 178,
-        category = "Action"
-    )
+    cmd = CreateMovieCommand(title="Avatar", duration=178, category="Action")
 
     movie = cmd.execute()
-    #Assert ¿si ya existe?
+    # Assert ¿si ya existe?
+
 
 def test_list_movies():
     """
     INPUT
     OUTPUT:
     """
-    Movie(
-        title = "Avatar",
-        duration = 178,
-        category = "Action"
-    ).save()
-    
-    Movie(
-        title = "Spider-Man 3",
-        duration = 156,
-        category = "Action"
-    ).save()
+    Movie(title="Avatar", duration=178, category="Action").save()
+
+    Movie(title="Spider-Man 3", duration=156, category="Action").save()
 
     query = ListMovies()
 
